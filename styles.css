@@ -1,4 +1,10 @@
 /* Add CSS styles for your web site here and use them in index.html. */
 body {
-    background-color: blue;
+    
+    background-color: lightblue;
+      font-family: "Helvetica";
+      font-size: 14px;
+      margin: auto;
+      width: 50%;
+      text-align: center
   }
