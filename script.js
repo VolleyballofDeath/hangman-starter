@@ -58,7 +58,7 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz"
 //event listeners for startGame and guessLetter
 
 document.getElementById("start").addEventListener("click", startGame)
-document.getElementById("guessLetter").addEventListener("click", guessLetter)
+
 //once at start of the game
 
 startGame();
@@ -117,14 +117,12 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the â€œ_â€ word with the correctly guessed letters filled in.
     there is a help video for this in classroom 
     */
-    
-    
     }
     
     //every time the user enters a guess
-    function guessLetter() {
+    function guessLetter(button) {
     //gets the letter that has been guessed
-    var data = document.getElementById("guessedLetter").value
+    var data = button.value
     guessedLetters.push(data);
     document.getElementById("guessedLetters").innerHTML = guessedLetters.join(" ");
     //console.log(guessedLetters);
@@ -152,7 +150,6 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
         var btn;
         var div = document.getElementById("buttonContainer");
         document.getElementById("buttonContainer").innerHTML = ""
-        let thing = ''
         for(let i = 0; i<alphabet.length;i++){
             if(guessedLetters.includes(alphabet.charAt(i))){
             }else{
@@ -161,18 +158,15 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
                 btn.setAttribute("class","ltrBtn");
                 btn.setAttribute("value",alphabet[i]);
                 
-                btn.setAttribute("onclick","btnClickHandler(this)");
+                btn.setAttribute("onclick","guessLetter(this)");
 
                 //set the display value of the button
                 btn.innerHTML = alphabet[i];
                 //append the button element to the page
                 div.appendChild(btn);
-
-
-                thing+='<option value="'+alphabet.charAt(i)+'">'+alphabet.charAt(i)+'</option>'
             }
+           
     }
-        document.getElementById("guessedLetter").innerHTML = thing
     }
     function setImage(){
         if(guesses==8){
