@@ -151,7 +151,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     function generateselect(){
         var btn;
         var div = document.getElementById("buttonContainer");
-        
+        document.getElementById("buttonContainer").innerHTML = ""
         let thing = ''
         for(let i = 0; i<alphabet.length;i++){
             if(guessedLetters.includes(alphabet.charAt(i))){
@@ -159,12 +159,12 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
                 btn = document.createElement("button");
                 //add the three necessary attributes to my button element
                 btn.setAttribute("class","ltrBtn");
-                btn.setAttribute("value",alphabet.charAt[i]);
+                btn.setAttribute("value",alphabet[i]);
+                
                 btn.setAttribute("onclick","btnClickHandler(this)");
 
                 //set the display value of the button
-                btn.innerHTML = alphabet.charAt[i];
-
+                btn.innerHTML = alphabet[i];
                 //append the button element to the page
                 div.appendChild(btn);
 
