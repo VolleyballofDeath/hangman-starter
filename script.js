@@ -96,8 +96,6 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     
     //at start and every time the user enters a guess
     function printWord() {
-        //sets win/loss display to be blank
-        document.getElementById("victory").innerHTML = "<br>"
         //returns the partially guessed word
         var answer = "";
         for(var i = 0; i < word.length; i++){
@@ -107,14 +105,9 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
                 answer+="_ ";
             }
         }
-        //declares victory if the word matches the parts of it that are guessed
-        if(answer==word){
-            document.getElementById("victory").innerHTML = "you win"
-            document.getElementById("guessedLetter").innerHTML = ""
-        }
         return answer;
     /*
-    Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the â€œ_â€ word with the correctly guessed letters filled in.
+    Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the word with the correctly guessed letters filled in.
     there is a help video for this in classroom 
     */
     }
@@ -132,10 +125,6 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     if(word.indexOf(data) == -1){
         guesses--;
 
-    }
-    if(guesses <=0){
-        document.getElementById("victory").innerHTML = "you lose"
-        document.getElementById("guessedLetter").innerHTML = ""
     }
     //update displayed value of guesses
     document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
