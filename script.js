@@ -87,7 +87,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
         words = words1
     }else if(data1 == "long"){
         words = words2
-    }else if(data1 == "elements"){ƒ
+    }else if(data1 == "elements"){
         words = words3
     }
     //sets a word an prints it
