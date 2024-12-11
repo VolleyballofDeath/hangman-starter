@@ -60,11 +60,11 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz"
 document.getElementById("start").addEventListener("click", startGame)
 
 //once at start of the game
-let GameActive;
+
 startGame();
 
 function startGame() {
-GameActive = true;
+
 //sets guessed letters display to be blank and ensures the page dosent jump when it itsnt
 document.getElementById("guessedLetters").innerHTML = "<br>"
 guesses = 8;
@@ -136,7 +136,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
         document.getElementById("victory").innerHTML = "defeat";
         GameActive = false;
     }
-    generateselect();
+    
     //update displayed value of guesses
     document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
     setImage();
@@ -150,7 +150,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
         var btn;
         var div = document.getElementById("buttonContainer");
         document.getElementById("buttonContainer").innerHTML = ""
-        //if(GameActive){
+        
         for(let i = 0; i<alphabet.length;i++){
             if(guessedLetters.includes(alphabet.charAt(i))){
             }else{
@@ -166,7 +166,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
                 //append the button element to the page
                 div.appendChild(btn);
             }
-        //}
+        
     }
     }
     function setImage(){
