@@ -150,7 +150,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
         var btn;
         var div = document.getElementById("buttonContainer");
         document.getElementById("buttonContainer").innerHTML = ""
-        if(GameActive){
+        //if(GameActive){
         for(let i = 0; i<alphabet.length;i++){
             if(guessedLetters.includes(alphabet.charAt(i))){
             }else{
@@ -166,7 +166,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
                 //append the button element to the page
                 div.appendChild(btn);
             }
-        }
+        //}
     }
     }
     function setImage(){
