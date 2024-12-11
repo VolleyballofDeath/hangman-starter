@@ -170,7 +170,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     }
     }
     function setImage(){
-        if(guesses==8){
+        if(guesses>=8){
             document.getElementById("image").src = "img/image8.png"
         }if(guesses==7){
             document.getElementById("image").src = "img/image7.png"
@@ -186,7 +186,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
             document.getElementById("image").src = "img/image2.png"
         }if(guesses==1){
             document.getElementById("image").src = "img/image1.png"
-        }if(guesses<=0){
+        }else{
             document.getElementById("image").src = "img/image0.png"
         }
     }
