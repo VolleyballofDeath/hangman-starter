@@ -128,7 +128,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
 
     }
     //victory and defeat code
-    if(word==data){
+    if(word==printWord()){
         document.getElementById("victory").innerHTML = "victory";
         GameActive =false;
     }
