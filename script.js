@@ -60,19 +60,19 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz"
 document.getElementById("start").addEventListener("click", startGame)
 
 //once at start of the game
-let GameActive;
+
 startGame();
 
 function startGame() {
-GameActive = true;
-//sets guessed letters display to be blank and ensures the page dosent jump when it itsnt
-document.getElementById("guessedLetters").innerHTML = "<br>"
-guesses = 8;
-setImage();
-//declare words list that a word will be selected from
-let words;
-//sets gueeses remaining display to number of guesses
-document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
+
+    //sets guessed letters display to be blank and ensures the page dosent jump when it itsnt
+    document.getElementById("guessedLetters").innerHTML = "<br>"
+    guesses = 8;
+    setImage();
+    //declare words list that a word will be selected from
+    let words;
+    //sets gueeses remaining display to number of guesses
+    document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
     /*
     - Reset the board, empty guessedLetters 
     - Set a word from words array into word - this line will grab  a random element from your words array for you:
@@ -80,7 +80,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     */
     guessedLetters = [];
     //resets the selector box to have the full alphabet
-    generateselect();
+    generateselect(true);
     //sets words to the actual selected mode
     var data1 = document.getElementById("difficulty?").value
     if(data1 == "normal"){
@@ -120,7 +120,7 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     guessedLetters.push(data);
     document.getElementById("guessedLetters").innerHTML = guessedLetters.join(" ");
     //console.log(guessedLetters);
-    generateselect();
+    
     document.getElementById("candidate").innerHTML = printWord();  
     //decrements guesses remaining if the guessed letter is not contained in the word
     if(word.indexOf(data) == -1){
@@ -130,13 +130,16 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     //victory and defeat code
     if(word==printWord()){
         document.getElementById("victory").innerHTML = "victory";
-        GameActive =false;
+
+        generateselect(false);
     }
-    if(guesses <= 0){
+    else if(guesses <= 0){
         document.getElementById("victory").innerHTML = "defeat";
-        GameActive = false;
+
+        generateselect(false);
+    }else{
+        generateselect(true);
     }
-    
     //update displayed value of guesses
     document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
     setImage();
@@ -146,11 +149,11 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     
     }
     //manages updating the selector box to remove guessed letters if any exist
-    function generateselect(){
+    function generateselect(GameActive){
         var btn;
         var div = document.getElementById("buttonContainer");
         document.getElementById("buttonContainer").innerHTML = ""
-        if(GameActive == true){
+        if(GameActive){
         for(let i = 0; i<alphabet.length;i++){
             if(guessedLetters.includes(alphabet.charAt(i))){
             }else{
