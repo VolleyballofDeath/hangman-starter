@@ -60,7 +60,6 @@ let words;
 document.getElementById("start").addEventListener("click", startGame)
 
 //once at start of the game
-
 startGame();
 
 function startGame() {
