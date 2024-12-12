@@ -54,7 +54,7 @@ let words3 = ["hydrogen","helium","lithium","beryllium","boron","carbon","nitrog
               let guesses = 8;
 let guessedLetters = [];
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
-
+let words;
 //event listeners for startGame and guessLetter
 
 document.getElementById("start").addEventListener("click", startGame)
@@ -65,12 +65,12 @@ startGame();
 
 function startGame() {
 
-    //sets guessed letters display to be blank and ensures the page dosent jump when it itsnt
+    //resets all the things
     document.getElementById("guessedLetters").innerHTML = "<br>"
+    document.getElementById("victory").innerHTML = "<br>";
     guesses = 8;
     setImage();
-    //declare words list that a word will be selected from
-    let words;
+    generateselect(true);
     //sets gueeses remaining display to number of guesses
     document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
     /*
@@ -79,9 +79,7 @@ function startGame() {
     word = words[Math.floor(Math.random() * words.length)];
     */
     guessedLetters = [];
-    //resets the selector box to have the full alphabet
-    generateselect(true);
-    //sets words to the actual selected mode
+    //sets words from whicth the word will be picked to the selected mode
     var data1 = document.getElementById("difficulty?").value
     if(data1 == "normal"){
         words = words1
@@ -93,7 +91,7 @@ function startGame() {
     //sets a word an prints it
     word = words[Math.floor(Math.random() * words.length)];
     document.getElementById("candidate").innerHTML = printWord(); 
-    }
+}
 
 //at start and every time the user enters a guess
 function printWord() {
@@ -115,12 +113,12 @@ there is a help video for this in classroom
 
 //every time the user enters a guess
 function guessLetter(button) {
-//gets the letter that has been guessed
+//gets the letter that has been pressed
 var data = button.value
 guessedLetters.push(data);
 document.getElementById("guessedLetters").innerHTML = guessedLetters.join(" ");
-//console.log(guessedLetters);
 
+//prints the partiallly guessed word to the screen
 document.getElementById("candidate").innerHTML = printWord();  
 //decrements guesses remaining if the guessed letter is not contained in the word
 if(word.indexOf(data) == -1){
@@ -140,7 +138,7 @@ else if(guesses <= 0){
 }else{
     generateselect(true);
 }
-//update displayed value of guesses
+//update displayed value of guesses 
 document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
 setImage();
 /*
@@ -148,7 +146,7 @@ Manage the game: Add letters to guessedLetters, call printWord, deduct from gues
 */
 
 }
-//manages updating the selector box to remove guessed letters if any exist
+//manages updating the keyboard to remove guessed letters if any exist and removes the board if the game is over to prevent further guesses
 function generateselect(GameActive){
     var btn;
     var div = document.getElementById("buttonContainer");
@@ -168,10 +166,11 @@ function generateselect(GameActive){
                 btn.innerHTML = alphabet[i];
                 //append the button element to the page
                 div.appendChild(btn);
-                }
             }
+        }
     }
 }
+//sets the image based on the number of guesses
 function setImage(){
     if(guesses>=8){
         document.getElementById("image").src = "img/image8.png"
