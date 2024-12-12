@@ -70,6 +70,7 @@ function startGame() {
     document.getElementById("victory").innerHTML = "<br>";
     guesses = 8;
     setImage();
+    guessedLetters = [];
     generateselect(true);
     //sets gueeses remaining display to number of guesses
     document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
@@ -78,7 +79,6 @@ function startGame() {
     - Set a word from words array into word - this line will grab  a random element from your words array for you:
     word = words[Math.floor(Math.random() * words.length)];
     */
-    guessedLetters = [];
     //sets words from whicth the word will be picked to the selected mode
     var data1 = document.getElementById("difficulty?").value
     if(data1 == "normal"){
