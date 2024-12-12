@@ -94,66 +94,66 @@ function startGame() {
     word = words[Math.floor(Math.random() * words.length)];
     document.getElementById("candidate").innerHTML = printWord(); 
     }
-    
-    //at start and every time the user enters a guess
-    function printWord() {
-        //returns the partially guessed word
-        var answer = "";
-        for(var i = 0; i < word.length; i++){
-            if(guessedLetters.indexOf(word[i])!=-1){
-                answer+=word[i];
-            }else{
-                answer+="_ ";
-            }
+
+//at start and every time the user enters a guess
+function printWord() {
+    //returns the partially guessed word
+    var answer = "";
+    for(var i = 0; i < word.length; i++){
+        if(guessedLetters.indexOf(word[i])!=-1){
+            answer+=word[i];
+        }else{
+            answer+="_ ";
         }
-        return answer;
-    /*
-    Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the word with the correctly guessed letters filled in.
-    there is a help video for this in classroom 
-    */
     }
-    
-    //every time the user enters a guess
-    function guessLetter(button) {
-    //gets the letter that has been guessed
-    var data = button.value
-    guessedLetters.push(data);
-    document.getElementById("guessedLetters").innerHTML = guessedLetters.join(" ");
-    //console.log(guessedLetters);
-    
-    document.getElementById("candidate").innerHTML = printWord();  
-    //decrements guesses remaining if the guessed letter is not contained in the word
-    if(word.indexOf(data) == -1){
-        guesses--;
+    return answer;
+/*
+Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the word with the correctly guessed letters filled in.
+there is a help video for this in classroom 
+*/
+}
 
-    }
-    //victory and defeat code
-    if(word==printWord()){
-        document.getElementById("victory").innerHTML = "victory";
+//every time the user enters a guess
+function guessLetter(button) {
+//gets the letter that has been guessed
+var data = button.value
+guessedLetters.push(data);
+document.getElementById("guessedLetters").innerHTML = guessedLetters.join(" ");
+//console.log(guessedLetters);
 
-        generateselect(false);
-    }
-    else if(guesses <= 0){
-        document.getElementById("victory").innerHTML = "defeat";
+document.getElementById("candidate").innerHTML = printWord();  
+//decrements guesses remaining if the guessed letter is not contained in the word
+if(word.indexOf(data) == -1){
+    guesses--;
 
-        generateselect(false);
-    }else{
-        generateselect(true);
-    }
-    //update displayed value of guesses
-    document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
-    setImage();
-    /*
-    Manage the game: Add letters to guessedLetters, call printWord, deduct from guesses, check for a win or loss.
-    */
-    
-    }
-    //manages updating the selector box to remove guessed letters if any exist
-    function generateselect(GameActive){
-        var btn;
-        var div = document.getElementById("buttonContainer");
-        document.getElementById("buttonContainer").innerHTML = ""
-        if(GameActive){
+}
+//victory and defeat code
+if(word==printWord()){
+    document.getElementById("victory").innerHTML = "victory";
+
+    generateselect(false);
+}
+else if(guesses <= 0){
+    document.getElementById("victory").innerHTML = "defeat";
+
+    generateselect(false);
+}else{
+    generateselect(true);
+}
+//update displayed value of guesses
+document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
+setImage();
+/*
+Manage the game: Add letters to guessedLetters, call printWord, deduct from guesses, check for a win or loss.
+*/
+
+}
+//manages updating the selector box to remove guessed letters if any exist
+function generateselect(GameActive){
+    var btn;
+    var div = document.getElementById("buttonContainer");
+    document.getElementById("buttonContainer").innerHTML = ""
+    if(GameActive){
         for(let i = 0; i<alphabet.length;i++){
             if(guessedLetters.includes(alphabet.charAt(i))){
             }else{
@@ -168,28 +168,28 @@ function startGame() {
                 btn.innerHTML = alphabet[i];
                 //append the button element to the page
                 div.appendChild(btn);
+                }
             }
-        }
     }
+}
+function setImage(){
+    if(guesses>=8){
+        document.getElementById("image").src = "img/image8.png"
+    }if(guesses==7){
+        document.getElementById("image").src = "img/image7.png"
+    }if(guesses==6){
+        document.getElementById("image").src = "img/image6.png"
+    }if(guesses==5){
+        document.getElementById("image").src = "img/image5.png"
+    }if(guesses==4){
+        document.getElementById("image").src = "img/image4.png"
+    }if(guesses==3){
+        document.getElementById("image").src = "img/image3.png"
+    }if(guesses==2){
+        document.getElementById("image").src = "img/image2.png"
+    }if(guesses==1){
+        document.getElementById("image").src = "img/image1.png"
+    }else{
+        document.getElementById("image").src = "img/image0.png"
     }
-    function setImage(){
-        if(guesses>=8){
-            document.getElementById("image").src = "img/image8.png"
-        }if(guesses==7){
-            document.getElementById("image").src = "img/image7.png"
-        }if(guesses==6){
-            document.getElementById("image").src = "img/image6.png"
-        }if(guesses==5){
-            document.getElementById("image").src = "img/image5.png"
-        }if(guesses==4){
-            document.getElementById("image").src = "img/image4.png"
-        }if(guesses==3){
-            document.getElementById("image").src = "img/image3.png"
-        }if(guesses==2){
-            document.getElementById("image").src = "img/image2.png"
-        }if(guesses==1){
-            document.getElementById("image").src = "img/image1.png"
-        }else{
-            document.getElementById("image").src = "img/image0.png"
-        }
-    }
+}
