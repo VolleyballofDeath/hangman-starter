@@ -54,33 +54,31 @@ let words3 = ["hydrogen","helium","lithium","beryllium","boron","carbon","nitrog
               let guesses = 8;
 let guessedLetters = [];
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
-
+let words;
 //event listeners for startGame and guessLetter
 
 document.getElementById("start").addEventListener("click", startGame)
-document.getElementById("guessLetter").addEventListener("click", guessLetter)
-//once at start of the game
 
+//once at start of the game
 startGame();
 
 function startGame() {
-//sets guessed letters display to be blank and ensures the page dosent jump when it itsnt
-document.getElementById("guessedLetters").innerHTML = "<br>"
-guesses = 8;
-setImage();
-//declare words list that a word will be selected from
-let words;
-//sets gueeses remaining display to number of guesses
-document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
+
+    //resets all the things
+    document.getElementById("guessedLetters").innerHTML = "<br>"
+    document.getElementById("victory").innerHTML = "<br>";
+    guesses = 8;
+    setImage();
+    guessedLetters = [];
+    generateselect(true);
+    //sets gueeses remaining display to number of guesses
+    document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
     /*
     - Reset the board, empty guessedLetters 
     - Set a word from words array into word - this line will grab  a random element from your words array for you:
     word = words[Math.floor(Math.random() * words.length)];
     */
-    guessedLetters = [];
-    //resets the selector box to have the full alphabet
-    generateselect();
-    //sets words to the actual selected mode
+    //sets words from whicth the word will be picked to the selected mode
     var data1 = document.getElementById("difficulty?").value
     if(data1 == "normal"){
         words = words1
@@ -92,90 +90,104 @@ document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses
     //sets a word an prints it
     word = words[Math.floor(Math.random() * words.length)];
     document.getElementById("candidate").innerHTML = printWord(); 
-    }
-    
-    //at start and every time the user enters a guess
-    function printWord() {
-        //sets win/loss display to be blank
-        document.getElementById("victory").innerHTML = "<br>"
-        //returns the partially guessed word
-        var answer = "";
-        for(var i = 0; i < word.length; i++){
-            if(guessedLetters.indexOf(word[i])!=-1){
-                answer+=word[i];
-            }else{
-                answer+="_ ";
-            }
-        }
-        //declares victory if the word matches the parts of it that are guessed
-        if(answer==word){
-            document.getElementById("victory").innerHTML = "you win"
-            document.getElementById("guessedLetter").innerHTML = ""
-        }
-        return answer;
-    /*
-    Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the â€œ_â€ word with the correctly guessed letters filled in.
-    there is a help video for this in classroom 
-    */
-    
-    
-    }
-    
-    //every time the user enters a guess
-    function guessLetter() {
-    //gets the letter that has been guessed
-    var data = document.getElementById("guessedLetter").value
-    guessedLetters.push(data);
-    document.getElementById("guessedLetters").innerHTML = guessedLetters.join(" ");
-    //console.log(guessedLetters);
-    generateselect();
-    document.getElementById("candidate").innerHTML = printWord();  
-    //decrements guesses remaining if the guessed letter is not contained in the word
-    if(word.indexOf(data) == -1){
-        guesses--;
+}
 
+//at start and every time the user enters a guess
+function printWord() {
+    //returns the partially guessed word
+    var answer = "";
+    for(var i = 0; i < word.length; i++){
+        if(guessedLetters.indexOf(word[i])!=-1){
+            answer+=word[i];
+        }else{
+            answer+="_ ";
+        }
     }
-    if(guesses <=0){
-        document.getElementById("victory").innerHTML = "you lose"
-        document.getElementById("guessedLetter").innerHTML = ""
-    }
-    //update displayed value of guesses
-    document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
-    setImage();
-    /*
-    Manage the game: Add letters to guessedLetters, call printWord, deduct from guesses, check for a win or loss.
-    */
-    
-    }
-    //manages updating the selector box to remove guessed letters if any exist
-    function generateselect(){
-        let thing = ''
+    return answer;
+/*
+Compare each letter in answer word to the letters in guessedLetters using guessedLetters.indexOf(letter).  Use this to build the word with the correctly guessed letters filled in.
+there is a help video for this in classroom 
+*/
+}
+
+//every time the user enters a guess
+function guessLetter(button) {
+//gets the letter that has been pressed
+var data = button.value
+guessedLetters.push(data);
+document.getElementById("guessedLetters").innerHTML = guessedLetters.join(" ");
+
+//prints the partiallly guessed word to the screen
+document.getElementById("candidate").innerHTML = printWord();  
+//decrements guesses remaining if the guessed letter is not contained in the word
+if(word.indexOf(data) == -1){
+    guesses--;
+
+}
+//victory and defeat code
+if(word==printWord()){
+    document.getElementById("victory").innerHTML = "victory";
+
+    generateselect(false);
+}
+else if(guesses <= 0){
+    document.getElementById("victory").innerHTML = "defeat";
+
+    generateselect(false);
+}else{
+    generateselect(true);
+}
+//update displayed value of guesses 
+document.getElementById("numGuesses").innerHTML = "Guesses Remaining..."+guesses;
+setImage();
+/*
+Manage the game: Add letters to guessedLetters, call printWord, deduct from guesses, check for a win or loss.
+*/
+
+}
+//manages updating the keyboard to remove guessed letters if any exist and removes the board if the game is over to prevent further guesses
+function generateselect(GameActive){
+    var btn;
+    var div = document.getElementById("buttonContainer");
+    document.getElementById("buttonContainer").innerHTML = ""
+    if(GameActive){
         for(let i = 0; i<alphabet.length;i++){
             if(guessedLetters.includes(alphabet.charAt(i))){
             }else{
-                thing+='<option value="'+alphabet.charAt(i)+'">'+alphabet.charAt(i)+'</option>'
+                btn = document.createElement("button");
+                //add the three necessary attributes to my button element
+                btn.setAttribute("class","ltrBtn");
+                btn.setAttribute("value",alphabet[i]);
+                
+                btn.setAttribute("onclick","guessLetter(this)");
+
+                //set the display value of the button
+                btn.innerHTML = alphabet[i];
+                //append the button element to the page
+                div.appendChild(btn);
             }
-    }
-        document.getElementById("guessedLetter").innerHTML = thing
-    }
-    function setImage(){
-        if(guesses==8){
-            document.getElementById("image").src = "img/image8.png"
-        }if(guesses==7){
-            document.getElementById("image").src = "img/image7.png"
-        }if(guesses==6){
-            document.getElementById("image").src = "img/image6.png"
-        }if(guesses==5){
-            document.getElementById("image").src = "img/image5.png"
-        }if(guesses==4){
-            document.getElementById("image").src = "img/image4.png"
-        }if(guesses==3){
-            document.getElementById("image").src = "img/image3.png"
-        }if(guesses==2){
-            document.getElementById("image").src = "img/image2.png"
-        }if(guesses==1){
-            document.getElementById("image").src = "img/image1.png"
-        }if(guesses<=0){
-            document.getElementById("image").src = "img/image0.png"
         }
     }
+}
+//sets the image based on the number of guesses
+function setImage(){
+    if(guesses>=8){
+        document.getElementById("image").src = "img/image8.png"
+    }if(guesses==7){
+        document.getElementById("image").src = "img/image7.png"
+    }if(guesses==6){
+        document.getElementById("image").src = "img/image6.png"
+    }if(guesses==5){
+        document.getElementById("image").src = "img/image5.png"
+    }if(guesses==4){
+        document.getElementById("image").src = "img/image4.png"
+    }if(guesses==3){
+        document.getElementById("image").src = "img/image3.png"
+    }if(guesses==2){
+        document.getElementById("image").src = "img/image2.png"
+    }if(guesses==1){
+        document.getElementById("image").src = "img/image1.png"
+    }else{
+        document.getElementById("image").src = "img/image0.png"
+    }
+}
