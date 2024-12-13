@@ -173,19 +173,19 @@ function generateselect(GameActive){
 function setImage(){
     if(guesses>=8){
         document.getElementById("image").src = "img/image8.png"
-    }if(guesses==7){
+    }else if(guesses==7){
         document.getElementById("image").src = "img/image7.png"
-    }if(guesses==6){
+    }else if(guesses==6){
         document.getElementById("image").src = "img/image6.png"
-    }if(guesses==5){
+    }else if(guesses==5){
         document.getElementById("image").src = "img/image5.png"
-    }if(guesses==4){
+    }else if(guesses==4){
         document.getElementById("image").src = "img/image4.png"
-    }if(guesses==3){
+    }else if(guesses==3){
         document.getElementById("image").src = "img/image3.png"
-    }if(guesses==2){
+    }else if(guesses==2){
         document.getElementById("image").src = "img/image2.png"
-    }if(guesses==1){
+    }else if(guesses==1){
         document.getElementById("image").src = "img/image1.png"
     }else{
         document.getElementById("image").src = "img/image0.png"
